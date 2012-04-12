@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+	 
+		<title>App</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+		<script type="text/javascript" src="app/libs/cordova/cordova-1.6.0.js"></script>
+		<script type="text/javascript">
+		document.addEventListener("deviceready", onDeviceReady, false);
+		function onDeviceReady(){
+			App.isDeviceLoaded = true;
+			App.init();
+		}
+		</script>
+		<script type="text/javascript" src="app/libs/cordova/plugins/TestFlight.js"></script>
+		<script type="text/javascript" src="app/libs/cordova/plugins/GoogleAnalyticsPlugin.js"></script>
+
+		<script data-main="app/bootstrap" src="app/libs/require/require.js"></script>
+
+		
+
+		<link rel="stylesheet" type="text/css" href="assets/css/animation.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/ios.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/app.css">
+		<!--
+		<link rel="stylesheet" type="text/css" href="assets/js/jquery-ui/css/smoothness-custom/jquery-ui-1.8.17.custom.css">
+		
+		<link rel="stylesheet" media="only screen and (max-device-width: 1024px)" href="assets/css/ipad.css" type="text/css" />		
+		<link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="assets/css/iphone.css" type="text/css" />
+		-->
+	</head>
+	<body>
+	<div id="container"></div>
+	</body>
+</html>

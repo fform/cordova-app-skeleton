@@ -1,0 +1,51 @@
+/* @override 
+	http://willwillwill.local/assets/css/app.css */
+
+*{
+	-webkit-text-size-adjust: none;
+	font-family: sans-serif;
+}
+html, body{
+	min-height: 150%;
+}
+
+body {
+    cursor: default;
+    font: 14px HelveticaNeue,"Helvetica Neue",helvetica,arial,sans-serif;
+    margin: 0; border: 0; padding: 0;
+    background-color: #555;
+
+}
+#container{
+    position:absolute;
+	width: 320px;
+	height: 460px;
+	overflow: hidden;
+	-webkit-perspective: 600;
+	-webkit-transform-style: preserve-3d;
+	-webkit-transform:translate3d(0px, 0px, 150px);
+}
+#spinny{
+	-webkit-perspective: 600;
+	-webkit-transform-style: preserve-3d;
+	width: 100px;
+	height: 100px;
+	background-color: rgba(14, 14, 14, 0.84);
+	display: block;
+	position: absolute;
+	top: 190px;
+	margin-bottom: -50%;
+	margin-left: -25%;
+	z-index: 2000;
+	border-radius: 8px;
+	left: 190px;
+	text-align: center;
+}
+#spinny .spinner{
+	top: 50px!important;
+	left: 50px!important;
+}
+
+
+
+
