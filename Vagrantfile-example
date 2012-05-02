@@ -1,0 +1,22 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant::Config.run do |config|
+
+  config.vm.box = "ubuntu-12"
+
+  config.vm.box_url = "http://proto.idealab.com/boxes/ubuntu12-lamp.box"
+
+  # Leave 22 (ssh) as 2222 for Vagrant
+  config.vm.forward_port 80, 8000
+  config.vm.forward_port 22, 2222
+
+  # Mount a specific folder as the default for apache
+  #   <id> <virtualbox_sharepoint> <local_path_from_vagrant>
+
+  config.vm.share_folder "v-www", "/var/www", "./"
+
+  config.vm.provision :shell, :path => "./provision/vagrant-provision.sh"
+
+
+end
