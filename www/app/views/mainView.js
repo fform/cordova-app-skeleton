@@ -21,6 +21,8 @@ View.Main = Backbone.View.extend({
 
 		this.render();
 
+		$("#splash").remove();
+		
 		$(":not(.scrollerbox)").on('touchmove', document, function(e) {
 			e.preventDefault();
 		});
@@ -90,7 +92,7 @@ View.Main = Backbone.View.extend({
 		  hwaccel: true, className: 'spinner', zIndex: 2e9
 		};
 
-		var spin = "<div id='spinny' class='fade-out animated'></div>";
+		var spin = $("<div>").attr('id','spinny').addClass('fade-out animated');
 		this.spinner = new Spinner(opts).spin(spin[0]);
 		$("body").append(spin);
 		

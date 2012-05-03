@@ -128,7 +128,7 @@ App = (function(){
 					function(){},function() {}, key
 				);
 			}
-		}
+		},
 
 		benchmark: function( key, clear_start ){
 			var now = new Date();
