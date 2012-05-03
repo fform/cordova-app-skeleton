@@ -1,12 +1,24 @@
-/* @override 
-	http://willwillwill.local/assets/css/app.css */
-
+@font-face{ 
+	font-family: 'WebSymbolsRegular';
+	src: url('../fonts/websymbols-regular-webfont.eot');
+	src: url('../fonts/websymbols-regular-webfont.eot?#iefix') format('embedded-opentype'),
+	     url('../fonts/websymbols-regular-webfont.woff') format('woff'),
+	     url('../fonts/websymbols-regular-webfont.ttf') format('truetype'),
+	     url('../fonts/websymbols-regular-webfont.svg#WebSymbolsRegular') format('svg');
+	}
+	
 *{
 	-webkit-text-size-adjust: none;
-	font-family: sans-serif;
+	-webkit-font-smoothing: subpixel-antialiased;
+	font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 html, body{
 	min-height: 150%;
+}
+
+input:focus{
+	outline: none;
 }
 
 body {
@@ -14,7 +26,32 @@ body {
     font: 14px HelveticaNeue,"Helvetica Neue",helvetica,arial,sans-serif;
     margin: 0; border: 0; padding: 0;
     background-color: #555;
-
+	position: relative;
+}
+#splash{
+	top: -20px;
+	left: 0;
+	width: 320px;
+	height: 460px;
+	position: absolute;
+	-webkit-perspective: 600;
+	-webkit-transform-style: preserve-3d;
+	-webkit-transform:translate3d(0px, 0px, 251px);
+	background-image: url('../img/Default@2x.png');
+}
+#splashimg{
+	width: 320px;
+	height: 480px;
+	background-image: url('../img/Default@2x.png');
+}
+#background{
+	postiion:absolute;
+	top: 0;
+	left: 0;
+	width: 320px;
+	height: 460px;
+	z-index: 0;
+	background-color: #e9e8e3;
 }
 #container{
     position:absolute;
@@ -24,28 +61,34 @@ body {
 	-webkit-perspective: 600;
 	-webkit-transform-style: preserve-3d;
 	-webkit-transform:translate3d(0px, 0px, 150px);
+	z-index: 2;
 }
 #spinny{
-	-webkit-perspective: 600;
-	-webkit-transform-style: preserve-3d;
 	width: 100px;
 	height: 100px;
 	background-color: rgba(14, 14, 14, 0.84);
-	display: block;
+	
 	position: absolute;
-	top: 190px;
-	margin-bottom: -50%;
-	margin-left: -25%;
-	z-index: 2000;
+	z-index: 9999;
 	border-radius: 8px;
-	left: 190px;
 	text-align: center;
+	top: 0;
+	left: 0;
+	-webkit-transform:translate3d(110px, 190px, 150px);
 }
-#spinny .spinner{
-	top: 50px!important;
-	left: 50px!important;
+.scrollerbox{
+	overflow: hidden;
+	position: absolute;
+	top: 44px;
+	right: 0;
+	bottom: 0;
+	left: 0;
 }
-
-
-
-
+.sample-page{
+	z-index: 1000;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}

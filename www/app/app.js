@@ -1,31 +1,46 @@
+window.Router = {};
+window.Model = {};
+window.Collection = {};
+window.View = {};
 
-define([
-	'jquery', 'underscore', 'backbone', 'Router', 'views/mainView', "local/en", 
-	'libs/tappable'
-], function($, _, Backbone, Router, MainView, Local){
+window.clog = function(){
+	if( AG['debugging'] ){
+		_(arguments).each(function(e,i){
+			if(typeof e === "object"){
+				e = JSON.stringify(e);
+			}
+			console.log(e);
+		});
+	}
+}
 
-	var App = {
+App = (function(){
+	var Application = {
+
+		container: "#container",
+
 		_isDeviceLoaded: false,
 		_isDomReady: false,
+		_hasInitialized: false,
 
 		_isTouch: ('ontouchstart' in window),
 
 		_touch_or_click: "click",
 
 		isNative: function(){
-			return (window.device !== undefined && 'phonegap' in window === false);
+			return App.iOS() || App.android();
 		},
 		iOS: function(){
-			return  App.isNative() && String(device.platform).toLowerCase().match(/iphone|ipod|ipad/) !== null;
+			return  String(navigator.platform).toLowerCase().match(/iphone|ipod|ipad/) !== null;
 		},
 		android: function(){
-			return App.isNative() && String(device.platform).toLowerCase().match(/android/) !== null;
+			return String(navigator.platform).toLowerCase().match(/android/) !== null;
 		},
 		ripple: function(){
 			return (window.device !== undefined && device.phonegap !== undefined)
 		},
 		isSimulator: function(){
-			return window.device !== undefined && String(device.platform).toLowerCase().match(/simulator/) !== null
+			return String(navigator.platform).toLowerCase().match(/simulator/) !== null
 		},
 
 		views:{},
@@ -33,58 +48,107 @@ define([
 		models:{},
 
 		init: function () {
-			if(!this._isDeviceLoaded || !this._isDomReady) {
+			App.benchmark('app.init');
+			if(!window.isDeviceLoaded || !this._isDomReady) {
 				return;
 			}
-
-			if(App.iOS() && !App.isSimulator()) {
-				window.plugins.TestFlight.takeOff(
-					function(){},function() {}, AG['testflight_key']
-				);
+			
+			if(this._hasInitialized){
+				clog('Already init');
+				return;
 			}
+			this._hasInitialized = true;
 
+			if(AG['production_mode'] && App.iOS() && !App.isSimulator()) {
+				
+				if( AG['testflight_key'] !== "" ){
+					testFlight = window.plugins.testFlight;
+					testFlight.takeOff(	function(){}, function() {}, AG['testflight_key'] );
+					App._isTrackingTestFlight = true;
+				}
+				
+				if( AG['google_analytics_trackid'] !== "" ){
+					googleAnalytics = window.plugins.googleAnalyticsPlugin;
+					googleAnalytics.startTrackerWithAccountID( AG['google_analytics_trackid'] );
+					App._isTrackingGoogleAnalytics = true;
+				}
+			}
 			
-			App.touch_or_click = App._isTouch ? "touchstart" : "click";
-			App.views.main = new MainView();
-			App.lang = Local;
-			
-			/* App.loadCollection('Stories'); */
+			App.views.main = new View.Main();
 
-			
+			App.Routes = new Router.Main();
+			Backbone.history.start({silent:true});
+			App.track( "benchmark", "app", "init", App.benchmark( 'app.init' ) );
 		},
 
-		confirm: function(message, callback, title, buttonLabels){
-			if(App._isTouch) {
-				navigator.notification.confirm(message, callback, title || AG['app_title'], buttonLabels);
+		onPause: function(){
+			App.track( 'app', 'statechange', 'pause');
+		},
+
+		onResume: function(){
+			App.track( 'app', 'statechange', 'resume');
+		},
+
+		confirm: function( message, buttonLabels, callback, title ){
+			if( App.isNative() ) {
+				navigator.notification.confirm(message, callback, title || App.lang['app_title'], buttonLabels);
 			}else{
 				callback(confirm(message));
 			}
 		},
 
-		alert: function(message, callback, title, buttonName){
-			if(App._isTouch) {
-				navigator.notification.alert(message, callback, title || AG['app_title'], buttonName);
+		alert: function( message, buttonName, callback, title ){
+			if( App.isNative() ) {
+				navigator.notification.alert(message, callback, title || App.lang['app_title'], buttonName);
 			}else{
 				alert(message);
 			}
 		},
 
-		binds_and_ui: function(){
+		track: function(category, action, label, value) {
+			clog([category,action,label,value]);
+			if(App._isTrackingGoogleAnalytics){
+				googleAnalytics.trackEvent(category, action, label||"", value||"");
+				if(action == "view"){
+					googleAnalytics.trackPageview("/" + category);
+				}
+			}
 
-			
-
+			/*
+				// If you want to clone Analytics to Testflight
+				if( AG['testflight_category_ignores'].indexOf( category ) === -1){
+					App.checkpoint ( category + (action?"/"+action:"") + (label?"/"+label:"") + (value?"/"+value:"") );
+				}
+			*/
 		},
 
-		setupCollections: function(){
-
-		},
-
-		setupRouters: function(){
-
+		checkpoint: function( key ){
+			if(App._isTrackingTestFlight){
+				testFlight.passCheckpoint(
+					function(){},function() {}, key
+				);
+			}
 		}
 
-	}
+		benchmark: function( key, clear_start ){
+			var now = new Date();
+			if(!window._BENCHMARKS){
+				window._BENCHMARKS = {};
+			}
 
-	return App;
+			if( clear_start === true ){
+				delete _BENCHMARKS[key];
+			}
+			
+			if( _BENCHMARKS[key] ){
+				var elapsed = now.getTime() - _BENCHMARKS[key];
+				return elapsed;
+			}else{
+				_BENCHMARKS[key] = new Date().getTime();
+				return 0;
+			}
+		}
 
-});
+	};
+		return Application;
+})();

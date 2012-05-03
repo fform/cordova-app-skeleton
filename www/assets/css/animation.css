@@ -1,14 +1,20 @@
 /* @override 
-	http://willwillwill.local/assets/css/animation.css */
+	http://will.proto.idealab.com/www/assets/css/animation.css */
 
 .animated{
-	-webkit-transition-property: translate;
+	-webkit-transition-property: transform;
 	-webkit-transition-duration: .5s;
 	-webkit-timing-function: cubic-bezier(0.5, 0.2, 0.9, 0.4);
 	-webkit-transform-style: preserve-3d;
 	-webkit-backface-visibility: hidden;
 	-webkit-perspective: 500;
 	-webkit-perspective-origin: 50% 50%;
+	-webkit-transform:translate3d(0, 0, 0px);
+}
+
+.page-flip-left{
+-webkit-transform-origin: -200px -300!important;
+	-webkit-transform:rotate3d(0,1,0, 180deg)!important;
 }
 .fast{
 	-webkit-transition-duration: .3s;
@@ -16,10 +22,22 @@
 .slow{
 	-webkit-transition-duration: 1s;
 }
-.move-left{
+.hidden{
+	opacity: 0;
+}
+.hidemove-left{
+	-webkit-transform:translate3d(-150px, 0px, 0px);
+	opacity: 0;
+	display: none;
+}
+.hidemove-right{
+	-webkit-transform:translate3d(150px, 0px, 0px);
+	opacity: 0;
+}
+.showmove-left{
 	-webkit-transform:translate3d(0px, -280px, 0px);
 }
-.move-right{
+.showmove-right{
 	-webkit-transform:translate3d(0px, 280px, 0px);
 }
 .move-flip-lr{
@@ -37,9 +55,17 @@
 .fade-out{
 	-webkit-transition-property: all;
 	opacity: 0;
-}
+	display: none;
+	}
 .fade-out-zoom{
 	-webkit-transition-property: all;
 	opacity: 0;
-	-webkit-transform:translate3d(0, 0, 150px);
+	-webkit-transform:translate3d(0,0, 150px);
+	display: none;
+}
+
+.move-down{
+	-webkit-transform:translate3d(0, 250px, 0px);
+	opacity: 0;
+	display: none;
 }

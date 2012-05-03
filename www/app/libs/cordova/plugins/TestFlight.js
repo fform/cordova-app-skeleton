@@ -2,15 +2,10 @@
  TestFlight Plugin for cordova.
  Created by Shazron Abdullah, Nitobi Software Inc.
 
- 1. Include the TestFlight SDK files in Xcode (follow their instructions)
- 2. Add PGTestFlight.h and .m in Xcode
- 3. Add TestFlight.js to your www folder, and reference it in a script tag after your cordova.js
- 4. In cordova.plist, under the 'Plugins' key, add a new row: key is "com.cordova.testflightsdk" and the value is "PGTestFlight"
- 5. In cordova.plist, under the 'ExternalHosts' key, add a new value "testflightapp.com"
+ Updated by Will Froelich Apr-10-2012
 
- The plugin's JavaScript functions are under the global "window.plugins.TestFlight" object. 
- See the functions below (and the TestFlight SDK docs) for usage. Unfortunately all of TestFlight's SDK functions return void,
- and errors can only be gleaned from the run console, so check that for errors.
+ See README for install/use information
+
  */
 (function() {
 
@@ -95,7 +90,6 @@
             window.plugins.testFlight = new TestFlight();
         }
     };
-
 
     if (cordovaRef && cordovaRef.addConstructor) {
         cordovaRef.addConstructor(TestFlight.install);

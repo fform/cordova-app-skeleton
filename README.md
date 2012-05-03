@@ -1,6 +1,12 @@
 # Cordova Skeleton App #
 _By Will Froelich_
 
+### What this is ###
+
+A folder structure loaded with everything to make an iOS app with Cordova.
+
+Also included is a Vagrant configuration to get an Ubuntu image running and Fuel PHP to run your API.
+
 ---
 
 ## Requirements ##
@@ -10,6 +16,7 @@ _For testing_
 - This repo
 - Xcode 4.2 > [Mac app store]
 - iOS SDK [Via XCode Downloads]
+- Cordova 1.7 [http://phonegap.com/]
 
 _To run the api server locally_
 
@@ -22,7 +29,7 @@ _To run the api server locally_
 
 1. Pull repo and initialize submodules `git submodule init` and `git submodule update`
 2. Configure `/www/app/bootstrap.js`
-3. Open Xcode project
+3. Create Xcode project using the Cordova Template. Replace Cordova.plist with /frameworks/Cordova-example.plist
 4. Run in iPhone sim 4.3 >
 
 ## Get API running locally ##

@@ -24,7 +24,9 @@
     self = [super init];
     if (self) {
         // Initialization code here.
-        
+        #ifdef TESTING
+            [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
+        #endif
     }
     
     return self;

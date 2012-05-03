@@ -1,17 +1,18 @@
 // Filename: router.js
-define(['jquery','backbone'], function($, Backbone) {
 
-	var AppRouter = Backbone.Router.extend({
-		routes: {
+Router.Main = Backbone.Router.extend({
+	routes: {
+		"sample_uri_piece" : "sample",
+	},
 
-		}
-	});
+	initialize: function() {
+		
+	},
 
-	var initialize = function() {
-			var app_router = new AppRouter;
-			Backbone.history.start();
-		};
-	return {
-		initialize: initialize
-	};
+	sample: function(){
+		//Do Work
+		App.Routes.navigate('');
+	},
+
+	
 });

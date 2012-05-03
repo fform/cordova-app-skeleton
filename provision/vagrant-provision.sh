@@ -8,7 +8,7 @@ mysqladmin -u$db_user -p$db_pass create $db_name --force
 echo "Building tables and data"
 gunzip < $db_path$db_compfile | mysql -u$db_user -p$db_pass $db_name
 echo "Adding default user"
-mysql -uroot -proot -e"CREATE USER 'cspro'@'localhost' IDENTIFIED BY 'cspro';GRANT ALL PRIVILEGES ON cspro.* TO 'cspro'@'%';"  --force
+mysql -uroot -proot -e"CREATE USER '"$db_name"'@'localhost' IDENTIFIED BY '"$db_name"';GRANT ALL PRIVILEGES ON "$db_name".* TO '"$db_name"'@'%';"  --force
 
 echo "Setting up Vhost"
 sudo a2dissite default
