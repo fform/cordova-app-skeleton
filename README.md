@@ -3,9 +3,16 @@ _By Will Froelich_
 
 ### What this is ###
 
-A folder structure loaded with everything to make an iOS app with Cordova.
+A Skeleton setup for building an iOS Cordova (phoneGap) application using:
 
-Also included is a Vagrant configuration to get an Ubuntu image running and Fuel PHP to run your API.
+- Backbone.js : For a javascript framework. 
+- App : Structures the Backbone application, deals with Cordova's device ready, organizes views, analtyics wrappers
+- FuelPHP : Ready to go Fuel PHP setup for getting an API going
+- Vagrant : For building a virtual environment to run your API (Pre configured to our Fuel Install)
+- Google Analytics iOS SDK & Cordova Plugin : For analytics
+- Testflight iOS SDK & Cordova Plugin : For app distribution and analytics
+- Some iOS Flavored CSS : Rapid UI Layout
+- Tappable, Spin.js, iScroll, jQuery, jQuery-UI : Stuff to make your app more nativ'y (tm)
 
 ---
 
